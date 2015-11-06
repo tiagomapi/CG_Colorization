@@ -10,6 +10,7 @@ import java.awt.Color;
 public class Window {
 
 	private JFrame frmColorirImagem;
+	private Color color;
 
 	/**
 	 * Launch the application.
@@ -52,6 +53,11 @@ public class Window {
 		imgCanvas.setBounds(12, 12, 800, 600);
 		imgCanvas.setBackground(Color.WHITE);
 		panel.add(imgCanvas);
+		
+		ColorPicker colorPicker = new ColorPicker();
+		JButton btnColor = colorPicker.getButton("Escolher cor");
+		btnColor.setBounds(10, 620, 120, 25);
+		panel.add(btnColor);
 
 		ImageChooser chooser = new ImageChooser(imgCanvas);
 		JButton btnChooseImg = chooser.getButton("Abrir imagem");
@@ -61,5 +67,9 @@ public class Window {
 		JButton btnColorir = new JButton("Colorir");
 		btnColorir.setBounds(731, 620, 81, 25);
 		panel.add(btnColorir);
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 }
