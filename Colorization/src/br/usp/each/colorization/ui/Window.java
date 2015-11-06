@@ -32,7 +32,6 @@ public class Window {
 	 */
 	public Window() {
 		this.initialize();
-		this.openFileChooser();
 	}
 
 	/**
@@ -44,22 +43,23 @@ public class Window {
 		frmColorirImagem.setResizable(false);
 		frmColorirImagem.setBounds(100, 100, 830, 680);
 		frmColorirImagem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel();
 		frmColorirImagem.getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		JPanel imgCanvas = new JPanel();
+
+		ImageCanvas imgCanvas = new ImageCanvas();
 		imgCanvas.setBounds(12, 12, 800, 600);
 		imgCanvas.setBackground(Color.WHITE);
 		panel.add(imgCanvas);
-		
+
+		ImageChooser chooser = new ImageChooser(imgCanvas);
+		JButton btnChooseImg = chooser.getButton("Abrir imagem");
+		btnChooseImg.setBounds(600, 620, 120, 25);
+		panel.add(btnChooseImg);
+
 		JButton btnColorir = new JButton("Colorir");
 		btnColorir.setBounds(731, 620, 81, 25);
 		panel.add(btnColorir);
-	}
-
-	private void openFileChooser() {
-		
 	}
 }

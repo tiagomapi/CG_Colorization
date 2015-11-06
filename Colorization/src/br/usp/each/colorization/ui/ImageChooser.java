@@ -4,16 +4,20 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
+import br.usp.each.colorization.util.ImageLoader;
 
-public class ImgChooser implements ActionListener {
+public class ImageChooser implements ActionListener {
 
 	private JFileChooser chooser;
+	private ImageCanvas canvas;
 
-	public ImgChooser(JPanel canvas) {
+	public ImageChooser(ImageCanvas canvas) {
+		this.canvas = canvas;
 		this.chooser = new JFileChooser();
 		this.chooser.setMultiSelectionEnabled(false);
 	}
@@ -37,8 +41,14 @@ public class ImgChooser implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			JButton button = (JButton) e.getSource();
-			System.out.println(this.selectFile(button.getParent()));
+			String imgName = this.selectFile(button.getParent());
+
+			this.canvas.setImage(ImageLoader.load(imgName));
 		} catch (ClassCastException ex) {
+			System.err.println(ex.getMessage());
+		} catch (FileNotFoundException ex) {
+			System.err.println(ex.getMessage());
+		} catch (IOException ex) {
 			System.err.println(ex.getMessage());
 		}
 	}
