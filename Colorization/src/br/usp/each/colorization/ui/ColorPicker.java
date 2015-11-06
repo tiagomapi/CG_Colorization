@@ -10,7 +10,10 @@ import javax.swing.JColorChooser;
 
 public class ColorPicker implements ActionListener {
 
-	public ColorPicker() {
+	private ColorPickerCallback callback;
+
+	public ColorPicker(ColorPickerCallback callback) {
+		this.callback = callback;
 	}
 
 	public JButton getButton(String label) {
@@ -28,7 +31,7 @@ public class ColorPicker implements ActionListener {
 			String title = "Escolha a cor";
 
 			Color color = JColorChooser.showDialog(parent, title, Color.WHITE);
-			System.out.println(color);
+			this.callback.onColorSelected(color);
 		} catch (ClassCastException ex) {
 			System.err.println(ex.getMessage());
 		}

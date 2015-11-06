@@ -7,9 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.Color;
 
-public class Window {
+public class Window implements ColorPickerCallback {
 
 	private JFrame frmColorirImagem;
+	private ImageCanvas canvas;
 	private Color color;
 
 	/**
@@ -49,17 +50,17 @@ public class Window {
 		frmColorirImagem.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		ImageCanvas imgCanvas = new ImageCanvas();
-		imgCanvas.setBounds(12, 12, 800, 600);
-		imgCanvas.setBackground(Color.WHITE);
-		panel.add(imgCanvas);
-		
-		ColorPicker colorPicker = new ColorPicker();
+		this.canvas = new ImageCanvas();
+		this.canvas.setBounds(12, 12, 800, 600);
+		this.canvas.setBackground(Color.WHITE);
+		panel.add(this.canvas);
+
+		ColorPicker colorPicker = new ColorPicker(this);
 		JButton btnColor = colorPicker.getButton("Escolher cor");
 		btnColor.setBounds(10, 620, 120, 25);
 		panel.add(btnColor);
 
-		ImageChooser chooser = new ImageChooser(imgCanvas);
+		ImageChooser chooser = new ImageChooser(this.canvas);
 		JButton btnChooseImg = chooser.getButton("Abrir imagem");
 		btnChooseImg.setBounds(600, 620, 120, 25);
 		panel.add(btnChooseImg);
@@ -71,5 +72,11 @@ public class Window {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	@Override
+	public void onColorSelected(Color color) {
+		this.setColor(color);
+		System.out.println(this.color);
 	}
 }
