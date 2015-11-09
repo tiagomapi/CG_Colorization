@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -60,8 +61,8 @@ public class Window implements ColorPickerCallback {
 		btnColor.setBounds(10, 620, 120, 25);
 		panel.add(btnColor);
 		
-		PencilTool pencil = new PencilTool();
-		JButton btnPencil = pencil.getButton("Lapis");
+		PencilTool pencil = new PencilTool(this.canvas);
+		JToggleButton btnPencil = pencil.getButton("Lapis");
 		btnPencil.setBounds(140, 620, 80, 25);
 		panel.add(btnPencil);
 

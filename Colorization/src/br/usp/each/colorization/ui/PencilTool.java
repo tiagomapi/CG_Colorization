@@ -1,14 +1,34 @@
 package br.usp.each.colorization.ui;
 
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PencilTool {
+import javax.swing.JToggleButton;
 
-	public PencilTool() {
-		// TODO Auto-generated constructor stub
+public class PencilTool implements ActionListener {
+
+	private ImageCanvas canvas;
+	private boolean isEnabled;
+	private JToggleButton button;
+	
+	public PencilTool(ImageCanvas canvas) {
+		this.canvas = canvas;
 	}
 
-	public JButton getButton(String label) {
-		return new JButton(label);
+	public JToggleButton getButton(String label) {
+		if (this.button == null) {
+			this.button = new JToggleButton(label);
+			this.button.addActionListener(this);
+		}
+
+		return this.button;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.button) {
+			this.isEnabled = this.button.isSelected();
+			System.out.println(this.isEnabled);
+		}
 	}
 }
