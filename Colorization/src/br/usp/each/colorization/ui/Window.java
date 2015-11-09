@@ -59,10 +59,15 @@ public class Window implements ColorPickerCallback {
 		JButton btnColor = colorPicker.getButton("Escolher cor");
 		btnColor.setBounds(10, 620, 120, 25);
 		panel.add(btnColor);
+		
+		PencilTool pencil = new PencilTool();
+		JButton btnPencil = pencil.getButton("Lapis");
+		btnPencil.setBounds(140, 620, 80, 25);
+		panel.add(btnPencil);
 
 		ImageChooser chooser = new ImageChooser(this.canvas);
 		JButton btnChooseImg = chooser.getButton("Abrir imagem");
-		btnChooseImg.setBounds(600, 620, 120, 25);
+		btnChooseImg.setBounds(590, 620, 130, 25);
 		panel.add(btnChooseImg);
 
 		JButton btnColorir = new JButton("Colorir");
