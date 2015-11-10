@@ -5,22 +5,30 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+
+import br.usp.each.colorization.util.Resource;
 
 public class ColorPicker implements ActionListener {
 
 	private ColorPickerCallback callback;
-
+	private JButton button;
+	
 	public ColorPicker(ColorPickerCallback callback) {
 		this.callback = callback;
 	}
 
-	public JButton getButton(String label) {
-		JButton button = new JButton(label);
-		button.addActionListener(this);
+	public JButton getButton(String text) {
+		if (this.button == null) {
+			String iconPath = Resource.getIconPath("graphics.png");
+			this.button = new JButton(new ImageIcon(iconPath));
+			this.button.setToolTipText(text);
+			this.button.addActionListener(this);
+		}
 
-		return button;
+		return this.button;
 	}
 
 	@Override

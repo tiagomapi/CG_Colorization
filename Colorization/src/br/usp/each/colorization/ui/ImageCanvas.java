@@ -42,15 +42,18 @@ public class ImageCanvas extends JPanel {
 		if (this.points == null) return;
 		this.points[index] = point;
 	}
-	
+
+	public void clearLinesList() {
+		if (this.lines == null) return;
+		this.lines.clear();
+	}
+
 	public void clearPointsList() {
 		if (this.points == null) return;
 
 		for (int i = 0; i < this.points.length; i++) {
 			this.points[i] = null;
 		}
-
-		this.repaint();
 	}
 
 	@Override

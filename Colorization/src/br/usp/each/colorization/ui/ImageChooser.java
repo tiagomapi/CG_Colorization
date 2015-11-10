@@ -7,14 +7,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import br.usp.each.colorization.util.ImageLoader;
+import br.usp.each.colorization.util.Resource;
 
 public class ImageChooser implements ActionListener {
 
 	private JFileChooser chooser;
 	private ImageCanvas canvas;
+	
+	private JButton button;
 
 	public ImageChooser(ImageCanvas canvas) {
 		this.canvas = canvas;
@@ -22,11 +26,15 @@ public class ImageChooser implements ActionListener {
 		this.chooser.setMultiSelectionEnabled(false);
 	}
 
-	public JButton getButton(String label) {
-		JButton button = new JButton(label);
-		button.addActionListener(this);
+	public JButton getButton(String text) {
+		if (this.button == null) {
+			String iconPath = Resource.getIconPath("document-open.png");
+			this.button = new JButton(new ImageIcon(iconPath));
+			this.button.setToolTipText(text);
+			this.button.addActionListener(this);
+		}
 
-		return button;
+		return this.button;
 	}
 
 	public String selectFile(Component parent) {
