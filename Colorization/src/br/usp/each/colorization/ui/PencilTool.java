@@ -79,15 +79,21 @@ public class PencilTool implements ActionListener, MouseListener {
 		
 		if (this.pencilCursor == null) {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			
+			String name = "Pencil cursor";
+			String iconFileName = "pencil-cursor-16.png";
+			int iconY = 15;
 
-			String iconPath = Resource.getIconPath("pencil-16.png");
-			System.out.println(iconPath);
+			if (System.getProperty("os.name").startsWith("Windows")) {
+				iconFileName = "pencil-cursor-32.png";
+				iconY = 31;
+			}
+
+			String iconPath = Resource.getIconPath(iconFileName);
 			ImageIcon icon = new ImageIcon(iconPath);
 			Image img = icon.getImage();
 
-			java.awt.Point point = new java.awt.Point(0, 15);
-			String name = "Pencil cursor";
-
+			java.awt.Point point = new java.awt.Point(0, iconY);
 			this.pencilCursor = toolkit.createCustomCursor(img, point, name);
 		}
 
