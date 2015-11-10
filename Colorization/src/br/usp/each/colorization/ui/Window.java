@@ -101,7 +101,8 @@ public class Window implements ColorPickerCallback {
 		btnReset.setBounds(286, 620, 60, 40);
 		panel.add(btnReset);
 
-		JButton btnColorir = new JButton("Colorir");
+		ImagePainter painter = new ImagePainter(this.canvas);
+		JButton btnColorir = painter.getButton("Colorir");
 		btnColorir.setBounds(727, 620, 85, 40);
 		panel.add(btnColorir);
 	}

@@ -3,6 +3,7 @@ package br.usp.each.colorization.ui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JPanel;
 
@@ -31,6 +32,10 @@ public class ImageCanvas extends JPanel {
 
 		this.image = image;
 		this.repaint();
+	}
+
+	public ArrayList<Line> getPaintedLines() {
+		return (ArrayList<Line>) Collections.unmodifiableList(this.lines);
 	}
 
 	public void addLine(Line line) {
