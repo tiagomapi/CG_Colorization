@@ -8,18 +8,21 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JToggleButton;
 
+import br.usp.each.colorization.ui.geometry.Line;
+import br.usp.each.colorization.ui.geometry.Point;
+
 public class PencilTool implements ActionListener, MouseListener {
 
 	private boolean isEnabled;
 	private JToggleButton button;
 	private Color color;
 
-	private float coordenates[][];
+	private Point points[];
 	private int nextPoint;
 
 	public PencilTool() {
 		this.color = Color.BLACK;
-		this.coordenates = new float[2][2];
+		this.points = new Point[2];
 	}
 
 	public JToggleButton getButton(String label) {
@@ -53,27 +56,24 @@ public class PencilTool implements ActionListener, MouseListener {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		if (!this.isEnabled) return;
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (!this.isEnabled) return;
 
-		this.coordenates[this.nextPoint][0] = e.getX();
-		this.coordenates[this.nextPoint][1] = e.getY();
+		this.points[this.nextPoint] = new Point(e.getX(), e.getY(), this.color);
+
+		ImageCanvas canvas = (ImageCanvas) e.getComponent();
+		canvas.addPoint(this.nextPoint, this.points[this.nextPoint]);
+		canvas.repaint();
 
 		this.nextPoint = (this.nextPoint + 1) % 2;
 
 		if (this.nextPoint == 0) {
-			String lineDescription = "Line: "
-				+ "(" + this.coordenates[0][0] + "; "
-				+ this.coordenates[0][1] + ") -> ( "
-				+ this.coordenates[1][0] + "; "
-				+ this.coordenates[1][1] + ")";
-
-			System.out.println(lineDescription);
+			Line line = new Line(this.points[0], this.points[1], this.color);
+			canvas.addLine(line);
+			canvas.clearPointsList();
 		}
 	}
 
