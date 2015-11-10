@@ -12,7 +12,7 @@ public class Window implements ColorPickerCallback {
 
 	private JFrame frmColorirImagem;
 	private ImageCanvas canvas;
-	private Color color;
+	private PencilTool pencil;
 
 	/**
 	 * Launch the application.
@@ -60,10 +60,11 @@ public class Window implements ColorPickerCallback {
 		JButton btnColor = colorPicker.getButton("Escolher cor");
 		btnColor.setBounds(10, 620, 120, 25);
 		panel.add(btnColor);
-		
-		PencilTool pencil = new PencilTool(this.canvas);
+
+		this.pencil = new PencilTool();
 		JToggleButton btnPencil = pencil.getButton("Lapis");
 		btnPencil.setBounds(140, 620, 80, 25);
+		this.canvas.addMouseListener(this.pencil);
 		panel.add(btnPencil);
 
 		ImageChooser chooser = new ImageChooser(this.canvas);
@@ -76,13 +77,9 @@ public class Window implements ColorPickerCallback {
 		panel.add(btnColorir);
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
 	@Override
 	public void onColorSelected(Color color) {
-		this.setColor(color);
-		System.out.println(this.color);
+		if (this.pencil == null) return;
+		this.pencil.setColor(color);
 	}
 }
