@@ -1,6 +1,9 @@
 package br.usp.each.colorization.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,10 +24,12 @@ public class PencilTool implements ActionListener, MouseListener {
 	private final ImageCanvas canvas;
 	private JToggleButton pencilButton;
 	private JButton resetButton;
-	private Color color;
+	private Cursor defaultCursor;
+	private Cursor pencilCursor;
 
 	private Point points[];
 	private int nextPoint;
+	private Color color;
 
 	public PencilTool(ImageCanvas canvas) {
 		this.canvas = canvas;
@@ -69,13 +74,35 @@ public class PencilTool implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent e) {
+		if (!this.isEnabled) return;
+		
+		if (this.pencilCursor == null) {
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+			String iconPath = Resource.getIconPath("pencil-16.png");
+			System.out.println(iconPath);
+			ImageIcon icon = new ImageIcon(iconPath);
+			Image img = icon.getImage();
+
+			java.awt.Point point = new java.awt.Point(0, 15);
+			String name = "Pencil cursor";
+
+			this.pencilCursor = toolkit.createCustomCursor(img, point, name);
+		}
+
+		e.getComponent().setCursor(this.pencilCursor);
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseExited(MouseEvent e) {
+		if (!this.isEnabled) return;
+
+		if (this.defaultCursor == null) {
+			this.defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+		}
+
+		e.getComponent().setCursor(this.defaultCursor);
 	}
 
 	@Override
