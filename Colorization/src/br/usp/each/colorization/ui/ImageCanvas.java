@@ -31,6 +31,8 @@ public class ImageCanvas extends JPanel {
 		if (image == null) return;
 
 		this.image = image;
+		this.clearPointsList();
+		this.clearLinesList();
 		this.repaint();
 	}
 
