@@ -1,6 +1,7 @@
 package br.usp.each.colorization.processing;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 
@@ -17,12 +18,17 @@ public class ColorPropagation {
 	public static void propagate(ImageCanvas canvas) {
 		// TODO Image processing following the algorithm
 		ArrayList<Line> l = canvas.getPaintedLines();
+		Iterator it = l.iterator();
 		Line j;
 		Line2D p;
 		for(int i=0;i<l.size();i++){
 			j=l.get(i);
 			p=j.getLine2D();
+		while(it.hasNext()){
+			canvas.setRGB();
+		}	
 		}
+		
 				
 			}
 		
