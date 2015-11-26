@@ -1,5 +1,6 @@
 package br.usp.each.colorization.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
-import br.usp.each.colorization.ui.geometry.Line;
+import br.usp.each.colorization.ui.geometry.BresenhamsLine;
 import br.usp.each.colorization.ui.geometry.Point;
 
 public class ImageCanvas extends JPanel {
@@ -15,11 +16,11 @@ public class ImageCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
 	
-	private ArrayList<Line> lines;
+	private ArrayList<BresenhamsLine> lines;
 	private Point points[];
 
 	public ImageCanvas() {
-		this.lines = new ArrayList<Line>();
+		this.lines = new ArrayList<BresenhamsLine>();
 		this.points = new Point[2];
 	}
 
@@ -36,11 +37,13 @@ public class ImageCanvas extends JPanel {
 		this.repaint();
 	}
 
-	public ArrayList<Line> getPaintedLines() {
-		return (ArrayList<Line>) Collections.unmodifiableList(this.lines);
+	public ArrayList<BresenhamsLine> getPaintedLines() {
+		return (ArrayList<BresenhamsLine>) Collections.unmodifiableList(
+			this.lines
+		);
 	}
 
-	public void addLine(Line line) {
+	public void addLine(BresenhamsLine line) {
 		if (this.lines == null || line == null) return;
 		this.lines.add(line);
 	}
@@ -63,6 +66,18 @@ public class ImageCanvas extends JPanel {
 		}
 	}
 
+	public void drawLine(Graphics g, BresenhamsLine line) {
+		if (g == null || line == null) return;
+		g.setColor(line.color);
+		
+		Point[] points = line.getPoints();
+		if (points == null) return;
+
+		for (int i = 0; i < points.length; i++) {
+			g.fillRect(points[i].x, points[i].y, 1, 1);
+		}
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -77,13 +92,12 @@ public class ImageCanvas extends JPanel {
 			int x = this.points[i].x - 1;
 			int y = this.points[i].y - 1;
 
-			g.setColor(this.points[i].color);
+			g.setColor(Color.BLACK);
 			g.fillRect(x, y, 5, 5);
 		}
 
-		for (Line line : this.lines) {
-			g.setColor(line.color);
-			g.drawLine(line.p1.x, line.p1.y, line.p2.x, line.p2.y);
+		for (BresenhamsLine line : this.lines) {
+			this.drawLine(g, line);
 		}
 	}
 }

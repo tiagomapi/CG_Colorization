@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
-import br.usp.each.colorization.ui.geometry.Line;
+import br.usp.each.colorization.ui.geometry.BresenhamsLine;
 import br.usp.each.colorization.ui.geometry.Point;
 import br.usp.each.colorization.util.Resource;
 
@@ -118,14 +118,14 @@ public class PencilTool implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		if (!this.isEnabled) return;
 
-		this.points[this.nextPoint] = new Point(e.getX(), e.getY(), this.color);
+		this.points[this.nextPoint] = new Point(e.getX(), e.getY());
 
 		this.canvas.addPoint(this.nextPoint, this.points[this.nextPoint]);
 
 		this.nextPoint = (this.nextPoint + 1) % 2;
 
 		if (this.nextPoint == 0) {
-			Line line = new Line(this.points[0], this.points[1], this.color);
+			BresenhamsLine line = new BresenhamsLine(this.points[0], this.points[1], this.color);
 			this.canvas.addLine(line);
 			this.canvas.clearPointsList();			
 		}
