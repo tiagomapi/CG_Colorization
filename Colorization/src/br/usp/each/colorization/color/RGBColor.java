@@ -2,11 +2,11 @@ package br.usp.each.colorization.color;
 
 public class RGBColor {
 
-	public final int red;
-	public final int green;
-	public final int blue;
+	public final double red;
+	public final double green;
+	public final double blue;
 
-	public RGBColor(int r, int g, int b) {
+	public RGBColor(double r, double g, double b) {
 		this.red = r;
 		this.green = g;
 		this.blue = b;
