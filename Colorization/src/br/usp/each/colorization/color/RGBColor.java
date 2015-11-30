@@ -31,7 +31,7 @@ public class RGBColor {
 		return components;
 	}
 
-	public int getSingleValue() {
+	public int toSingleValue() {
 		long[] components = {255, this.red, this.green, this.blue};
 
 		int argb = 0;
