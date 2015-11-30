@@ -1,4 +1,4 @@
-package br.usp.each.colorization.ui;
+package br.usp.each.colorization.graphics;
 
 import br.usp.each.colorization.color.PixelColor;
 import br.usp.each.colorization.color.YCbCrColor;
